@@ -1,6 +1,35 @@
+/*Navbar goes here*/
+.logo{
+    font-family:'jersey 10';
+    font-size: 50px;
+    cursor: pointer;
+    color: #ffffff;
+    text-decoration: none;
+}
+@keyframes  color-change {
+    0% {color: rgb(251, 118, 118);}
+    7%{color: red;}
+    14.2% {color: orange;}
+    28.4% {color: yellow;}
+    42.6% {color: green;}
+    56.8% {color: blue;}
+    70% {color: indigo;}
+    84.2% {color: violet;}
+    100%{color:whitesmoke}
+}
+.logo span{
+    color: #d9e8ff;
+    font-family: 'jersey 10';
+    cursor: pointer;
+    animation: color-change 4s infinite;
+    transition: 0.3s ease;
+}
+
+
+
+
 * {
-    padding: 0;
-    margin: 0;
+    margin: 2px;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
@@ -8,16 +37,84 @@
     background-color: #025bee;
   }
   .wrapper {
-    background-color: #ffffff;
+    background-color: #fffdfd;
     width: 90%;
-    max-width: 31.25em;
-    position: absolute;
+    position:relative;
     transform: translateX(-50%);
     left: 50%;
-    top: 0.5em;
     padding: 1.5em;
+    height:fit-content;
     border-radius: 0.8em;
   }
+
+
+
+/*image text animation goes here!*/
+.img-text-animation{
+    font-size: 30px;
+    font-weight: 800;
+    min-width: 100px;
+}
+ .img-text-animation span{
+    position: relative;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.img-text-animation span::before{
+    content: "";
+    color:#021637;
+    animation: words 20s infinite;
+}
+.img-text-animation span::after{
+    content:"";
+    background-color:white;
+    position: absolute;
+    width: calc(102%+1px);
+    height: 100%;
+    border-left: 3px solid black;
+    right: -8px;
+    animation: cursor 0.6s infinite, typing 20s steps(25) infinite;
+}
+@keyframes cursor{
+    to{
+        border-left: 3px solid black;
+    }
+}
+@keyframes words{
+    0%,
+    100%{
+        content: "Upload your image here👇";
+    }
+}
+@keyframes typing{
+    10%,
+    15%,
+    30%,
+    35%,
+    50%,
+    55%,
+    70%,
+    75%,
+    90%,
+    95%{
+        width: 0;
+    }
+    5%,
+    20%,
+    25%,
+    40%,
+    45%,
+    60%,
+    65%,
+    80%,
+    85%{
+        width: calc(100% + 10px);
+    }
+}
+
+
+
+
+
   img {
     display: block;
     width: 80%;
