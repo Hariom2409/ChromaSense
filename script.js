@@ -9,6 +9,21 @@ let customAlert = document.getElementById("custom-alert");
 let pickedColorRef = document.getElementById("picked-color-ref");
 let eyeDropper;
 
+
+
+const dropArea=document.getElementById("drop-area");
+const inputFile=document.getElementById("input-file");
+const imageView=document.getElementById("img-view")
+inputFile.addEventListener("change",uploadImage);
+function uploadImage(){
+    let imgLink=URL.createObjectURL(inputFile.files[0]);
+    imageView.style.backgroundImage=`url(${imgLink})`;
+}
+
+
+
+
+
 //Function On Window Load
 window.onload = () => {
   //Check if the browser supports eyedropper
