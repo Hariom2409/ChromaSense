@@ -34,12 +34,12 @@
         <h5 class="img-text-animation"><span class='typing-animation'></span></h5>
       </div>
       <div class="image-container">
-        <img id="image" src="" />
-        <label for="input-file" class="drop-area">
-            <input type="file" accept="image/*" id="input-file"/>
+        <label for="input-file" id="drop-area">
+            <input type="file" accept="image/*" id="input-file" hidden/>
             <div id="img-view">
-                <img src="./508-icon.png">
+                <img src="./508-icon.png" style="height:150px; width: 150px;">
                 <p>Drag and drop or click here<br>to upload image</p>
+                <img id="image" src="" />
             </div>
         </label>
       </div>
