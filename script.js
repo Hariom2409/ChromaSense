@@ -2,7 +2,7 @@
 let pickColor = document.getElementById("pick-color");
 let error = document.getElementById("error");
 let fileInput = document.getElementById("file");
-let image = document.getElementById("image");
+let image = document.getElementById("uploaded-image");
 let hexValRef = document.getElementById("hex-val-ref");
 let rgbValRef = document.getElementById("rgb-val-ref");
 let customAlert = document.getElementById("custom-alert");
@@ -19,6 +19,15 @@ function uploadImage(){
     let imgLink=URL.createObjectURL(inputFile.files[0]);
     imageView.style.backgroundImage=`url(${imgLink})`;
     imageView.textContent='';
+    imageView.style.minWidth='350px';
+    imageView.style.minHeight='390px';
+    imageView.style.maxWidth='1200px';
+    imageView.style.maxHeight='2000px';
+    imageView.style.backgroundSize='cover';
+    imageView.style.backgroundPosition='center';
+    imageView.style.display = 'flex'; 
+    imageView.style.justifyContent = 'center'; 
+    imageView.style.alignItems = 'center';
     imageView.style.border=0;
 }
 
@@ -85,7 +94,8 @@ fileInput.onchange = () => {
   reader.onload = () => {
     //onload is triggered after file reading operation is successfully completed
     //set src attribute of image to result/input file
-    image.setAttribute("src", reader.result);
+    imageView.src=reader.result;
+    imageView.style.border-0;
   };
 };
 
