@@ -1,9 +1,11 @@
 /*Navbar goes here*/
 .logo{
+  width: 100px;
+  padding-left: 20px;
     font-family:'jersey 10';
     font-size: 50px;
     cursor: pointer;
-    color: #ffffff;
+    color: #dcf5fc;
     text-decoration: none;
 }
 @keyframes  color-change {
@@ -21,23 +23,24 @@
     color: #d9e8ff;
     font-family: 'jersey 10';
     cursor: pointer;
-    animation: color-change 4s infinite;
-    transition: 0.3s ease;
+    animation: color-change 50s infinite;
+    transition: 0.3s ease-in-out;
 }
 
 
 
 
 * {
-    margin: 2px;
+    margin: 0px;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
   body {
-    background-color: #025bee;
+    background-color: #00b6c0b4;
   }
   .wrapper {
-    background-color: #fffdfd;
+    top: 15px;
+    background-color: #EEEEEE;
     width: 90%;
     position:relative;
     transform: translateX(-50%);
@@ -48,6 +51,16 @@
   }
 
 
+.header{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222831;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+ }
 
 /*image text animation goes here!*/
 .img-text-animation{
@@ -67,7 +80,7 @@
 }
 .img-text-animation span::after{
     content:"";
-    background-color:white;
+    background-color: #EEEEEE;
     position: absolute;
     width: calc(102%+1px);
     height: 100%;
@@ -119,7 +132,7 @@
     width: auto;
     height: 400px;
     padding:20px;
-    background: #fff;
+    background: #EEEEEE;
     text-align: center;
     justify-content: center;
 }
@@ -132,6 +145,7 @@
     background-size: cover;
     object-fit: cover;
     margin: 0 auto;
+    padding-bottom: 30px;
 }
   img {
     display: block;
@@ -214,3 +228,5 @@
   }
 
 
+
+  

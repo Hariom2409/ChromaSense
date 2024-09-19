@@ -1,7 +1,7 @@
 //Create Initial references
 let pickColor = document.getElementById("pick-color");
 let error = document.getElementById("error");
-let fileInput = document.getElementById("file");
+let fileInput = document.getElementById("uploaded-image");
 let image = document.getElementById("uploaded-image");
 let hexValRef = document.getElementById("hex-val-ref");
 let rgbValRef = document.getElementById("rgb-val-ref");
@@ -11,6 +11,8 @@ let eyeDropper;
 
 
 
+
+//drop area and image size and image viewing functions goes here
 const dropArea=document.getElementById("drop-area");
 const inputFile=document.getElementById("input-file");
 const imageView=document.getElementById("img-view")
@@ -19,7 +21,7 @@ function uploadImage(){
     let imgLink=URL.createObjectURL(inputFile.files[0]);
     imageView.style.backgroundImage=`url(${imgLink})`;
     imageView.textContent='';
-    imageView.style.minWidth='350px';
+    imageView.style.minWidth='320px';
     imageView.style.minHeight='390px';
     imageView.style.maxWidth='1200px';
     imageView.style.maxHeight='2000px';
