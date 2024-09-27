@@ -1,7 +1,7 @@
 //Create Initial references
 let pickColor = document.getElementById("pick-color");
 let error = document.getElementById("error");
-let fileInput = document.getElementById("uploaded-image");
+let fileInput = document.getElementById("file");
 let image = document.getElementById("uploaded-image");
 let hexValRef = document.getElementById("hex-val-ref");
 let rgbValRef = document.getElementById("rgb-val-ref");
@@ -21,8 +21,8 @@ function uploadImage(){
     let imgLink=URL.createObjectURL(inputFile.files[0]);
     imageView.style.backgroundImage=`url(${imgLink})`;
     imageView.textContent='';
-    imageView.style.minWidth='320px';
-    imageView.style.minHeight='390px';
+    imageView.style.minWidth='200px';
+    imageView.style.minHeight='200px';
     imageView.style.maxWidth='1200px';
     imageView.style.maxHeight='2000px';
     imageView.style.backgroundSize='cover';
@@ -111,7 +111,7 @@ let copy = (textId) => {
   customAlert.style.transform = "scale(1)";
   setTimeout(() => {
     customAlert.style.transform = "scale(0)";
-  }, 2000);
+  }, 20000);
 };
 
 
