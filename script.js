@@ -23,7 +23,7 @@ function uploadImage(){
     imageView.textContent='';
     imageView.style.minWidth='200px';
     imageView.style.minHeight='200px';
-    imageView.style.maxWidth='1200px';
+    imageView.style.maxWidth='1000px';
     imageView.style.maxHeight='2000px';
     imageView.style.backgroundSize='cover';
     imageView.style.backgroundPosition='center';

@@ -142,8 +142,8 @@
     border-radius: 6px;
     border: 2px dashed black;
     background-position: center;
-    background-size: cover;
-    object-fit: cover;
+    background-size:contain;
+    object-fit: contain ;
     margin: 0 auto;
     
 }
@@ -274,7 +274,7 @@
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 2160px) {
   .wrapper {
     width: 80%;
     padding: 2em;
@@ -288,10 +288,17 @@
     min-width: 500px;
   }
   #drop-area {
-    height: 400px;
+    height: 600px;
+    
   }
   img {
     width: 80%;
+  }
+  #img-view{
+    padding-top: 120px;
+  }
+  #dropimg{
+    padding-top: 100px;
   }
 }
   
