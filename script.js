@@ -65,11 +65,46 @@ const colorSelector = async () => {
         console.log(rgbArr);
       }
       let rgbValue = "rgb(" + rgbArr + ")";
-      console.log(hexValue, rgbValue);
+      //CONVERSION OF RGB TO HSL
+      let r = rgbArr[0]/255;
+      let g = rgbArr[1]/255;
+      let b = rgbArr[2]/255;
+      let max = Math.max(r, g, b);
+      let min = Math.min(r, g, b);
+      let h, s, l=(max + min)/2;
+      if (max === min) {
+        h = s = 0;
+      } else{
+        let d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+          case r:
+            h=(g-b)/d+(g<b?6:0);
+            break;
+          case g:
+            h=(b-r)/d+2;
+            break;
+          case b:
+            h=(r-g)/d+4;
+            break;
+        }
+        h/=6;
+      }
+      h=Math.round(h*360);
+      s=Math.round(s*100);
+      l=Math.round(l*100);
+      let hslValue=`hsl(${h},${s}%,${l}%)`;
+
+      console.log(hexValue, rgbValue, hslValue);
       result.style.display = "grid";
       hexValRef.value = hexValue;
       rgbValRef.value = rgbValue;
+      document.getElementById("hsl-val-ref").value =hslValue;
       pickedColorRef.style.backgroundColor = hexValue;
+
+      document.getElementById("hex-label").innerText="HEX Value";
+      document.getElementById("rgb-label").innerText="RGB Value";
+      document.getElementById("hsl-label").innerText="HSL Value";
     })
     .catch((err) => {
       error.classList.remove("hide");
