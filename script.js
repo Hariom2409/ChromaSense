@@ -11,7 +11,6 @@ let eyeDropper;
 
 
 
-
 //drop area and image size and image viewing functions goes here
 const dropArea=document.getElementById("drop-area");
 const inputFile=document.getElementById("input-file");
@@ -113,12 +112,3 @@ let copy = (textId) => {
     customAlert.style.transform = "scale(0)";
   }, 20000);
 };
-
-
-
-
-
-
-
-
-
