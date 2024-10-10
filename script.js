@@ -147,3 +147,82 @@ let copy = (textId) => {
     customAlert.style.transform = "scale(0)";
   }, 20000);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+const generatePaletteButton = document.getElementById("generate-palette");
+const paletteContainer = document.getElementById("palette-container");
+
+generatePaletteButton.addEventListener("click", generateColorPalette);
+
+function generateColorPalette() {
+  const img = document.getElementById("img-view");
+  const imageSrc = img.style.backgroundImage.replace('url("', '').replace('")', '');
+  const imgElement = new Image();
+  imgElement.src = imageSrc;
+
+  imgElement.onload = function() {
+    const canvas = document.createElement('canvas');
+    canvas.width = imgElement.width;
+    canvas.height = imgElement.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(imgElement, 0, 0);
+
+    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixelData = pixels.data;
+
+    const colors = [];
+    for (let i = 0; i < pixelData.length; i += 4) {
+      const r = pixelData[i];
+      const g = pixelData[i + 1];
+      const b = pixelData[i + 2];
+      const a = pixelData[i + 3];
+
+      if (a > 0) {
+        colors.push(`rgb(${r}, ${g}, ${b})`);
+      }
+    }
+
+    const palette = getDominantColors(colors, 5);
+
+    paletteContainer.innerHTML = "";
+
+    palette.forEach((color) => {
+      const colorDiv = document.createElement("div");
+      colorDiv.style.backgroundColor = color;
+      colorDiv.style.width = "150px";
+      colorDiv.style.height = "50px";
+      colorDiv.style.display = "inline-block";
+      colorDiv.style.margin = "3px";
+      colorDiv.title = color;
+
+      paletteContainer.appendChild(colorDiv);
+    });
+  }
+}
+
+function getDominantColors(colors, count) {
+  const colorCounts = {};
+
+  colors.forEach((color) => {
+    if (colorCounts[color]) {
+      colorCounts[color]++;
+    } else {
+      colorCounts[color] = 1;
+    }
+  });
+
+  const sortedColors = Object.keys(colorCounts).sort((a, b) => colorCounts[b] - colorCounts[a]);
+
+  return sortedColors.slice(0, count);
+}
