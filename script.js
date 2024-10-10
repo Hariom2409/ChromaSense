@@ -198,12 +198,12 @@ function generateColorPalette() {
     palette.forEach((color) => {
       const colorDiv = document.createElement("div");
       colorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-      colorDiv.style.width = "150px";
+      colorDiv.style.width = "180px";
       colorDiv.style.height = "50px";
       colorDiv.style.display = "inline-block";
-      colorDiv.style.margin = "3px";
+      colorDiv.style.margin = "0px";
       colorDiv.style.position = "relative";
-
+    
       const colorCodeSpan = document.createElement("span");
       colorCodeSpan.style.position = "absolute";
       colorCodeSpan.style.top = "0";
@@ -213,22 +213,34 @@ function generateColorPalette() {
       colorCodeSpan.style.display = "flex";
       colorCodeSpan.style.justifyContent = "center";
       colorCodeSpan.style.alignItems = "center";
-      colorCodeSpan.style.color = "white";
       colorCodeSpan.style.fontWeight = "bold";
       colorCodeSpan.style.opacity = "0";
       colorCodeSpan.style.transition = "opacity 0.5s";
-      colorCodeSpan.textContent = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-
+    
+      // Round the RGB values to the nearest integer
+      const roundedColor = color.map(Math.round);
+      colorCodeSpan.textContent = `rgb(${roundedColor.join(", ")})`;
+    
+      // Calculate the opposite color
+      const oppositeColor = [
+        255 - color[0],
+        255 - color[1],
+        255 - color[2]
+      ];
+    
+      // Set the text color to the opposite color
+      colorCodeSpan.style.color = `rgb(${oppositeColor.join(", ")})`;
+    
       colorDiv.appendChild(colorCodeSpan);
-
+    
       colorDiv.addEventListener("mouseover", () => {
         colorCodeSpan.style.opacity = "1";
       });
-
+    
       colorDiv.addEventListener("mouseout", () => {
         colorCodeSpan.style.opacity = "0";
       });
-
+    
       paletteContainer.appendChild(colorDiv);
     });
   }
@@ -291,14 +303,12 @@ function euclideanDistance(a, b) {
 }
 // Set default palette count
 const paletteCountInput = document.getElementById("palette-count");
-paletteCountInput.value = 10;
+paletteCountInput.value = 5;
 
 // Generate palette button click event
 // ...
 
-// ...
 
-// ...
 
 const generatePaletteButton = document.getElementById("generate-palette");
 generatePaletteButton.addEventListener("click", () => {
