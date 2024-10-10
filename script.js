@@ -175,8 +175,10 @@ function generateColorPalette() {
     const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const pixelData = pixels.data;
 
+    // Reduce the number of pixels to process
+    const step = 5; // Reduced step size for more precise results
     const colors = [];
-    for (let i = 0; i < pixelData.length; i += 4) {
+    for (let i = 0; i < pixelData.length; i += step * 4) {
       const r = pixelData[i];
       const g = pixelData[i + 1];
       const b = pixelData[i + 2];
@@ -190,7 +192,14 @@ function generateColorPalette() {
     const paletteCountInput = document.getElementById("palette-count");
     const paletteCount = parseInt(paletteCountInput.value);
 
-    const palette = kMeansClustering(colors, paletteCount);
+    const palette = kMeansClustering(colors, paletteCount, 50); // Increased iterations for more precise results
+
+    // Sort the palette from brightest to darkest
+    palette.sort((a, b) => {
+      const luminanceA = calculateLuminance(a[0], a[1], a[2]);
+      const luminanceB = calculateLuminance(b[0], b[1], b[2]);
+      return luminanceB - luminanceA;
+    });
 
     const paletteContainer = document.getElementById("palette-container");
     paletteContainer.innerHTML = "";
@@ -246,7 +255,19 @@ function generateColorPalette() {
   }
 }
 
-function kMeansClustering(data, k) {
+function calculateLuminance(r, g, b) {
+  const rLinear = r / 255;
+  const gLinear = g / 255;
+  const bLinear = b / 255;
+
+  const rLinearAdjusted = rLinear <= 0.03928 ? rLinear / 12.92 : Math.pow((rLinear + 0.055) / 1.055, 2.4);
+  const gLinearAdjusted = gLinear <= 0.03928 ? gLinear / 12.92 : Math.pow((gLinear + 0.055) / 1.055, 2.4);
+  const bLinearAdjusted = bLinear <= 0.03928 ? bLinear / 12.92 : Math.pow((bLinear + 0.055) / 1.055, 2.4);
+
+  return  0.2126 * rLinearAdjusted + 0.7152 * gLinearAdjusted + 0.0722 * bLinearAdjusted;
+}
+
+function kMeansClustering(data, k, iterations) {
   let centroids = [];
   for (let i = 0; i < k; i++) {
     centroids.push(data[Math.floor(Math.random() * data.length)]);
@@ -257,40 +278,34 @@ function kMeansClustering(data, k) {
     clusters.push([]);
   }
 
-  let converged = false;
-  while (!converged) {
-    for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < iterations; i++) {
+    for (let j = 0; j < data.length; j++) {
       let minDistance = Infinity;
       let closestCentroidIndex = -1;
-      for (let j = 0; j < centroids.length; j++) {
-        let distance = euclideanDistance(data[i], centroids[j]);
+      for (let l = 0; l < centroids.length; l++) {
+        let distance = euclideanDistance(data[j], centroids[l]);
         if (distance < minDistance) {
           minDistance = distance;
-          closestCentroidIndex = j;
+          closestCentroidIndex = l;
         }
       }
-      clusters[closestCentroidIndex].push(data[i]);
+      clusters[closestCentroidIndex].push(data[j]);
     }
 
     let newCentroids = [];
-    for (let i = 0; i < clusters.length; i++) {
+    for (let j = 0; j < clusters.length; j++) {
       let sum = [0, 0, 0];
-      for (let j = 0; j < clusters[i].length; j++) {
-        sum[0] += clusters[i][j][0];
-        sum[1] += clusters[i][j][1];
-        sum[2] += clusters[i][j][2];
+      for (let l = 0; l < clusters[j].length; l++) {
+        sum[0] += clusters[j][l][0];
+        sum[1] += clusters[j][l][1];
+        sum[2] += clusters[j][l][2];
       }
-      newCentroids.push([sum[0] / clusters[i].length, sum[1] / clusters[i].length, sum[2] / clusters[i].length]);
+      newCentroids.push([sum[0] / clusters[j].length, sum[1] / clusters[j].length, sum[2] / clusters[j].length]);
     }
 
-    if (JSON.stringify(centroids) === JSON.stringify(newCentroids)) {
-      converged = true;
-    } else {
-      centroids = newCentroids;
-    }
-
+    centroids = newCentroids;
     clusters = [];
-    for (let i = 0; i < k; i++) {
+    for (let j = 0; j < k; j++) {
       clusters.push([]);
     }
   }
@@ -303,7 +318,7 @@ function euclideanDistance(a, b) {
 }
 // Set default palette count
 const paletteCountInput = document.getElementById("palette-count");
-paletteCountInput.value = 5;
+paletteCountInput.value = 6;
 
 // Generate palette button click event
 // ...
