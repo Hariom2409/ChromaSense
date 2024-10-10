@@ -48,6 +48,8 @@
         <label for="input-file" class="btn-12"><span>Open A Photo</span></label>
         <button id="pick-color"class="btn-12"><span>Pick Color</span></button>
         <button id="generate-palette" class="btn-12"><span>Generate Palette</span></button>
+        <button id="color-conversion"class="btn-12"><span>Color Conversion</span></button>
+        
 
       </div>
       <div id="error" class="hide"></div>
@@ -77,7 +79,13 @@
       </div>
       <div id="custom-alert">Color Code Copied!</div>
     </div>
-    <div id="palette-container"></div>
+    <div id="seconddiv">
+      <h1>
+        <span class="typing-animation">Color Palette</span>
+      </h1>
+      <input type="number" id="palette-count" placeholder="Number of colors in palette">
+      <div id="palette-container"></div>
+    </div>
     <!-- Script -->
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tinycolorpicker@1.4.1/dist/tinycolorpicker.min.js"></script>

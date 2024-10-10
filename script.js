@@ -158,13 +158,7 @@ let copy = (textId) => {
 
 
 
-
-
-const generatePaletteButton = document.getElementById("generate-palette");
-const paletteContainer = document.getElementById("palette-container");
-
-generatePaletteButton.addEventListener("click", generateColorPalette);
-
+// Generate Color Palette function
 function generateColorPalette() {
   const img = document.getElementById("img-view");
   const imageSrc = img.style.backgroundImage.replace('url("', '').replace('")', '');
@@ -193,8 +187,12 @@ function generateColorPalette() {
       }
     }
 
-    const palette = getDominantColors(colors, 5);
+    const paletteCountInput = document.getElementById("palette-count");
+    const paletteCount = parseInt(paletteCountInput.value);
 
+    const palette = getDominantColors(colors, paletteCount);
+
+    const paletteContainer = document.getElementById("palette-container");
     paletteContainer.innerHTML = "";
 
     palette.forEach((color) => {
@@ -204,13 +202,39 @@ function generateColorPalette() {
       colorDiv.style.height = "50px";
       colorDiv.style.display = "inline-block";
       colorDiv.style.margin = "3px";
-      colorDiv.title = color;
+      colorDiv.style.position = "relative";
+
+      const colorCodeSpan = document.createElement("span");
+      colorCodeSpan.style.position = "absolute";
+      colorCodeSpan.style.top = "0";
+      colorCodeSpan.style.left = "0";
+      colorCodeSpan.style.width = "100%";
+      colorCodeSpan.style.height = "100%";
+      colorCodeSpan.style.display = "flex";
+      colorCodeSpan.style.justifyContent = "center";
+      colorCodeSpan.style.alignItems = "center";
+      colorCodeSpan.style.color = "white";
+      colorCodeSpan.style.fontWeight = "bold";
+      colorCodeSpan.style.opacity = "0";
+      colorCodeSpan.style.transition = "opacity 0.5s";
+      colorCodeSpan.textContent = color;
+
+      colorDiv.appendChild(colorCodeSpan);
+
+      colorDiv.addEventListener("mouseover", () => {
+        colorCodeSpan.style.opacity = "1";
+      });
+
+      colorDiv.addEventListener("mouseout", () => {
+        colorCodeSpan.style.opacity = "0";
+      });
 
       paletteContainer.appendChild(colorDiv);
     });
   }
 }
 
+// Function to get dominant colors
 function getDominantColors(colors, count) {
   const colorCounts = {};
 
@@ -226,3 +250,11 @@ function getDominantColors(colors, count) {
 
   return sortedColors.slice(0, count);
 }
+
+// Set default palette count
+const paletteCountInput = document.getElementById("palette-count");
+paletteCountInput.value = 10;
+
+// Generate palette button click event
+const generatePaletteButton = document.getElementById("generate-palette");
+generatePaletteButton.addEventListener("click", generateColorPalette);
