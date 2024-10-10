@@ -183,21 +183,21 @@ function generateColorPalette() {
       const a = pixelData[i + 3];
 
       if (a > 0) {
-        colors.push(`rgb(${r}, ${g}, ${b})`);
+        colors.push([r, g, b]);
       }
     }
 
     const paletteCountInput = document.getElementById("palette-count");
     const paletteCount = parseInt(paletteCountInput.value);
 
-    const palette = getDominantColors(colors, paletteCount);
+    const palette = kMeansClustering(colors, paletteCount);
 
     const paletteContainer = document.getElementById("palette-container");
     paletteContainer.innerHTML = "";
 
     palette.forEach((color) => {
       const colorDiv = document.createElement("div");
-      colorDiv.style.backgroundColor = color;
+      colorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
       colorDiv.style.width = "150px";
       colorDiv.style.height = "50px";
       colorDiv.style.display = "inline-block";
@@ -217,7 +217,7 @@ function generateColorPalette() {
       colorCodeSpan.style.fontWeight = "bold";
       colorCodeSpan.style.opacity = "0";
       colorCodeSpan.style.transition = "opacity 0.5s";
-      colorCodeSpan.textContent = color;
+      colorCodeSpan.textContent = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
       colorDiv.appendChild(colorCodeSpan);
 
@@ -234,27 +234,75 @@ function generateColorPalette() {
   }
 }
 
-// Function to get dominant colors
-function getDominantColors(colors, count) {
-  const colorCounts = {};
+function kMeansClustering(data, k) {
+  let centroids = [];
+  for (let i = 0; i < k; i++) {
+    centroids.push(data[Math.floor(Math.random() * data.length)]);
+  }
 
-  colors.forEach((color) => {
-    if (colorCounts[color]) {
-      colorCounts[color]++;
-    } else {
-      colorCounts[color] = 1;
+  let clusters = [];
+  for (let i = 0; i < k; i++) {
+    clusters.push([]);
+  }
+
+  let converged = false;
+  while (!converged) {
+    for (let i = 0; i < data.length; i++) {
+      let minDistance = Infinity;
+      let closestCentroidIndex = -1;
+      for (let j = 0; j < centroids.length; j++) {
+        let distance = euclideanDistance(data[i], centroids[j]);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestCentroidIndex = j;
+        }
+      }
+      clusters[closestCentroidIndex].push(data[i]);
     }
-  });
 
-  const sortedColors = Object.keys(colorCounts).sort((a, b) => colorCounts[b] - colorCounts[a]);
+    let newCentroids = [];
+    for (let i = 0; i < clusters.length; i++) {
+      let sum = [0, 0, 0];
+      for (let j = 0; j < clusters[i].length; j++) {
+        sum[0] += clusters[i][j][0];
+        sum[1] += clusters[i][j][1];
+        sum[2] += clusters[i][j][2];
+      }
+      newCentroids.push([sum[0] / clusters[i].length, sum[1] / clusters[i].length, sum[2] / clusters[i].length]);
+    }
 
-  return sortedColors.slice(0, count);
+    if (JSON.stringify(centroids) === JSON.stringify(newCentroids)) {
+      converged = true;
+    } else {
+      centroids = newCentroids;
+    }
+
+    clusters = [];
+    for (let i = 0; i < k; i++) {
+      clusters.push([]);
+    }
+  }
+
+  return centroids;
 }
 
+function euclideanDistance(a, b) {
+  return Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2) + Math.pow(a[2] - b[2], 2));
+}
 // Set default palette count
 const paletteCountInput = document.getElementById("palette-count");
 paletteCountInput.value = 10;
 
 // Generate palette button click event
+// ...
+
+// ...
+
+// ...
+
 const generatePaletteButton = document.getElementById("generate-palette");
-generatePaletteButton.addEventListener("click", generateColorPalette);
+generatePaletteButton.addEventListener("click", () => {
+  generateColorPalette();
+  const secondDiv = document.getElementById("seconddiv");
+  secondDiv.classList.toggle("show");
+});
