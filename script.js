@@ -331,3 +331,59 @@ generatePaletteButton.addEventListener("click", () => {
   const secondDiv = document.getElementById("seconddiv");
   secondDiv.classList.toggle("show");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+function convertColor() {
+  const inputColor = document.getElementById("input-color").value;
+  const resultsContainer = document.getElementById("conversion-results");
+  resultsContainer.innerHTML = "";
+
+  try {
+    let color = tinycolor(inputColor);
+    
+    if (!color.isValid()) {
+      throw new Error("Invalid color input");
+    }
+
+    const conversions = [
+      { name: "HEX", value: color.toHexString() },
+      { name: "RGB", value: color.toRgbString() },
+      { name: "HSL", value: color.toHslString() },
+      { name: "HSV", value: color.toHsvString() },
+      { name: "Named Color", value: color.toName() || "No named color match" }
+    ];
+
+    conversions.forEach(conversion => {
+      const resultElement = document.createElement("div");
+      resultElement.className = "conversion-result";
+      resultElement.textContent = `${conversion.name}: ${conversion.value}`;
+      resultsContainer.appendChild(resultElement);
+    });
+
+  } catch (error) {
+    const errorElement = document.createElement("div");
+    errorElement.className = "conversion-result error";
+    errorElement.textContent = "Error: " + error.message;
+    resultsContainer.appendChild(errorElement);
+  }
+}
+
+const colorConversionButton = document.getElementById("color-conversion");
+colorConversionButton.addEventListener("click", () => {
+  const conversionDiv = document.getElementById("conversiondiv");
+  conversionDiv.classList.toggle("show");
+});
+
+const convertButton = document.getElementById("convert-color");
+convertButton.addEventListener("click", convertColor);

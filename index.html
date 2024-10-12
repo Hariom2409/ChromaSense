@@ -19,6 +19,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.2/tinycolor.min.js"></script>
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -85,6 +87,16 @@
       </h1>
       <input type="number" id="palette-count" placeholder="Number of colors in palette">
       <div id="palette-container"></div>
+    </div>
+    <div id="conversiondiv">
+      <h1>
+        <span class="typing-animation">Color Conversion</span>
+      </h1>
+      <div id="conversion-container">
+        <input type="text" id="input-color" placeholder="Enter color (e.g., #FF0000 or rgb(255,0,0))">
+        <button id="convert-color" class="btn-12"><span>Convert</span></button>
+        <div id="conversion-results"></div>
+      </div>
     </div>
     <!-- Script -->
     <script src="script.js"></script>

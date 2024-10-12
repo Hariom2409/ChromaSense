@@ -464,3 +464,50 @@
 #seconddiv.show {
   visibility: visible;
 }
+
+
+
+
+
+#conversiondiv {
+  top: 50px;
+  background-color: #EEEEEE;
+  width: 80%;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  padding: 1.5em;
+  height: fit-content;
+  border-radius: 0.8em;
+  visibility: hidden;
+  margin-top: 20px;
+}
+
+#conversiondiv.show {
+  visibility: visible;
+}
+
+#conversion-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#input-color {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+#conversion-results {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.conversion-result {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
