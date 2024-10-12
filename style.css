@@ -511,3 +511,120 @@
   margin: 5px 0;
   border-radius: 5px;
 }
+.footer {
+  background-color: #222831;
+  color: #EEEEEE;
+  padding: 60px 0 20px;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-brand {
+  flex-basis: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.footer-logo {
+  font-family: 'jersey 10', sans-serif;
+  font-size: 48px;
+  margin: 0;
+  background: linear-gradient(45deg, #ff00ff, #00ff00, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hue-rotate 10s infinite linear;
+}
+
+.footer-slogan {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #00ADB5;
+}
+
+.footer-nav {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.footer-link {
+  color: #EEEEEE;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #00ADB5;
+}
+
+.footer-social {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icon {
+  color: #EEEEEE;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #00ADB5;
+  transform: translateY(-5px);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(238, 238, 238, 0.1);
+   font-size: 14px;
+}
+
+.footer-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ff00ff, #00ff00, #00ffff);
+  background-size: 400px 400px;
+  animation: gradient-move 10s infinite linear;
+  z-index: -1;
+}
+
+@keyframes hue-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes gradient-move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(400px);
+  }
+}
